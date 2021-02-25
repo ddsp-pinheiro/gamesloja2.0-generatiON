@@ -15,43 +15,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.newgamesloja.newgenerationgames.model.Produto;
-import com.newgamesloja.newgenerationgames.repository.ProdutoRepository; 
+import com.newgamesloja.newgenerationgames.model.Usuario;
+import com.newgamesloja.newgenerationgames.repository.UsuárioRepository; 
 
 
 @RestController
-@RequestMapping("/produto")
+@RequestMapping("/usuario")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
 	
 	@Autowired
-	private ProdutoRepository repository;
+	private UsuárioRepository repository;
 	
 	@GetMapping
-	public ResponseEntity<List<Produto>> GetAll(){
+	public ResponseEntity<List<Usuario>> GetAll(){
 		return ResponseEntity.ok(repository.findAll());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Produto> GetById(@PathVariable long id){
+	public ResponseEntity<Usuario> GetById(@PathVariable long id){
 		return repository.findById(id)
 				.map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<Produto>> GetByNome(@PathVariable String nome){
-		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(nome));
+	public ResponseEntity<List<Usuario>> GetByNome(@PathVariable String usuario){
+		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(usuario));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Produto> post (@RequestBody Produto produto){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(produto));
+	public ResponseEntity<Usuario> post (@RequestBody Usuario usuario){
+		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
 	}
 	
 	@PutMapping
-	public ResponseEntity<Produto> put (@RequestBody Produto produto){
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(produto));
+	public ResponseEntity<Usuario> put (@RequestBody Usuario usuario){
+		return ResponseEntity.status(HttpStatus.OK).body(repository.save(usuario));
 	}
 	
 	@DeleteMapping("/{id}")
